@@ -177,11 +177,16 @@ const logOut = (req, res) => {
     });
 }
 
+//const 
+const getData= async (req,res)=>{
+     const data=await Register.find();
+     res.json(data);
+}
 
 module.exports = {
     Post_Register,
     loginData,
     emailSend,
     changePassword,
-    logOut
+    logOut,getData
 }
