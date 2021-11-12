@@ -4,6 +4,14 @@ const dotenv=require("dotenv")
 const cors=require("cors")
 const app=express();
 
+//handling uncaught exception
+process.on("uncaughtException",(err)=>{
+    console.log(`Error:${err.message}`)
+    console.log("shutting down server due to uncaught exception")
+    server.close(()=>{
+        process.exit(1);
+    });
+})
 
 //db connect
 dotenv.config()
