@@ -1,40 +1,30 @@
 
 const PlacesModel=require('./../model/places')
+const catchAsyncError=require("./../middleware/catchAsyncError")
 //create places for Admin
 
-const CreatePlaces= async (req,res,next)=>{
-  try{
+const CreatePlaces=catchAsyncError( async (req,res,next)=>{
+ 
     const Places=await PlacesModel.create(req.body)
     res.status(201).json(Places)
     }
-    catch(err){
-      res.send({meassage:err})
-    }
-
-}
+)
 //get All places Detail
 
-const getAllPlaces= async (req,res)=>{
-  try{
+const getAllPlaces=catchAsyncError( async (req,res)=>{
+  
     const places=await PlacesModel.find()
      res.json({
        success:true,
        places
      })
-    }
-     catch(err)
-     {
-       res.json({
-         message:error
-       })
-  }
-}
-
-//update places for admin
-const updatePlaces=async (req,res,next)=>{
    
-  try
-  {
+}
+)
+//update places for admin
+const updatePlaces=catchAsyncError( async (req,res,next)=>{
+   
+ 
     let placesFind=await PlacesModel.findById(req.params.id)
     if(!placesFind)
     {
@@ -50,19 +40,13 @@ const updatePlaces=async (req,res,next)=>{
         success:true,
        placesFind
       })
-    }
-  
-  catch(err){
-    res.json({
-      message:err
-    })
-  }
+    
 }
+)
 
 //delete places----admin
-const deletePlaces=async (req,res)=>{
-try
-{
+const deletePlaces=catchAsyncError( async (req,res)=>{
+
   let placesFind=await PlacesModel.findById(req.params.id)
     if(!placesFind)
     {
@@ -77,20 +61,13 @@ try
     success:true,
     places
   })
-}
-catch(err){
-  res.json({
-    message:err
-  })
-}
-}
 
+}
+)
 //get one places
  
-const getSinglePlaces=async (req,res)=>{
-  try
-  {
-    let placesFind=await PlacesModel.findById(req.params.id)
+const getSinglePlaces=catchAsyncError( async (req,res)=>{
+ let placesFind=await PlacesModel.findById(req.params.id)
     if(!placesFind)
     {
       return res.status(500).json({
@@ -105,14 +82,9 @@ const getSinglePlaces=async (req,res)=>{
         placesFind
       })
     }
-  }
-  catch(err){
-    res.json({
-      message:err
-    })
-  }
+  
 }
-
+)
 module.exports={
   CreatePlaces,
   getAllPlaces,
