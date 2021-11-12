@@ -1,4 +1,4 @@
-const ErrorHanler=require("./../utils/errorHandler")
+const ErrorHanler=require("./../utils/ErrorHandler")
 
 module.exports=(err,req,res,next)=>{
    err.statusCode=err.statusCode||500
