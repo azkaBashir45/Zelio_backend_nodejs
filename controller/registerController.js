@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const jwtKey = "jwt"
 //post data
 const Post_Register =  async (req, res) => {
-    const { name,  email, password } = req.body
+    // const { name,  email, password } = req.body
 
     try {
 
@@ -19,9 +19,9 @@ const Post_Register =  async (req, res) => {
           else
           {
             const register = new Register({
-                            name,
-                            email,
-                            password,
+                            name:req.body.name,
+                            email:req.body.email,
+                            password:req.body.password,
         
                         });
                         const registerSave =  register.save();

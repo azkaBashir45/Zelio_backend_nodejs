@@ -9,18 +9,20 @@ const app=express();
 dotenv.config()
 mongoose.connect(process.env.DB_CONNECT,{
     useUnifiedTopology: true, useNewUrlParser: true
-},
-()=>{
+}).then(()=>{
     console.log("Db is connect")
-}
-)
+}).catch((err)=>{
+    console.log(err)
+})
 //import route
 app.use(express.json());
 app.use(cors());
 
 const registerRoutes=require("./rotes/registerRouter");
-app.use("/users",registerRoutes);
+const placesRoutes=require("./rotes/placesRoutes");
+// app.use("/users",registerRoutes);
+app.use("/",placesRoutes);
 
-app.listen(5000,()=>{
-    console.log("Server is running on 5000")
+app.listen(3000,()=>{
+    console.log("Server is running on 3000")
 })
