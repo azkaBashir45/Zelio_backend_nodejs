@@ -11,8 +11,6 @@ mongoose.connect(process.env.DB_CONNECT,{
     useUnifiedTopology: true, useNewUrlParser: true
 }).then(()=>{
     console.log("Db is connect")
-}).catch((err)=>{
-    console.log(err)
 })
 //import route
 app.use(express.json());
@@ -23,6 +21,16 @@ const placesRoutes=require("./rotes/placesRoutes");
 // app.use("/users",registerRoutes);
 app.use("/",placesRoutes);
 
-app.listen(3000,()=>{
+const server=app.listen(3000,()=>{
     console.log("Server is running on 3000")
 })
+
+
+//unhandle promise rejection
+process.on("unhandledRejection",err=>{
+    console.log(`Error:${err.message}`)
+    console.log("shutting down server due to unhandle promise rejection")
+    server.close(()=>{
+        process.exit(1);
+    });
+});
