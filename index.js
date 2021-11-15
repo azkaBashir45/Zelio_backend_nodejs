@@ -26,7 +26,7 @@ app.use(cors());
 
 const registerRoutes=require("./rotes/registerRouter");
 const placesRoutes=require("./rotes/placesRoutes");
-// app.use("/users",registerRoutes);
+app.use("/",registerRoutes);
 app.use("/",placesRoutes);
 
 const server=app.listen(3000,()=>{

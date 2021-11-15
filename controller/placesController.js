@@ -1,7 +1,8 @@
 
 const PlacesModel=require('./../model/places')
 const catchAsyncError=require("./../middleware/catchAsyncError")
-const ErrorHandler = require('../utils/ErrorHandler')
+const ErrorHandler = require('./../utils/ErrorHandler')
+const Apifeatures=require("./../utils/Apifeatures")
 //create places for Admin
 
 const CreatePlaces=catchAsyncError( async (req,res,next)=>{
@@ -13,8 +14,8 @@ const CreatePlaces=catchAsyncError( async (req,res,next)=>{
 //get All places Detail
 
 const getAllPlaces=catchAsyncError( async (req,res)=>{
-  
-    const places=await PlacesModel.find()
+  const Apifeature=new Apifeatures(PlacesModel.find(),req.query).search()
+    const places=await Apifeature.query;
      res.json({
        success:true,
        places
@@ -71,7 +72,7 @@ const getSinglePlaces=catchAsyncError( async (req,res,next)=>{
  let placesFind=await PlacesModel.findById(req.params.id)
     if(!placesFind)
     {
-      return next(new ErrorHandler("Product not found",404))
+      return next(new ErrorHandler("Places not found",404))
     }
     else
     {
