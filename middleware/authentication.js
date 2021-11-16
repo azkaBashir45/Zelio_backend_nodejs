@@ -9,7 +9,7 @@ exports.isAuthenticatedUser=catchAsyncError(async (req,res,next)=>{
     const finalToken=token.slice(6)
 //    console.log(finalToken ) 
 if(!token){
-    // return res.status(401).json({
+    // return res.status(401).json({fff
     //     success:false,
     //     message:"Product not found"
     // })
