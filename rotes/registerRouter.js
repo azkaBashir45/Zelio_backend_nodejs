@@ -1,8 +1,9 @@
-const registerController=require("../controller/registerController")
+const registerController=require("../controller/registerController");
+
 const router=require("express").Router();
 //middleware
 const verifyToken=require("./../middleware/authVerify")
-router.post("/register",registerController.Post_Register);
+router.route("/register").post(registerController.Post_Register);
 router.post("/login",registerController.loginData);
 
 //random

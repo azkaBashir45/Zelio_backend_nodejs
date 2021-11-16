@@ -6,6 +6,7 @@ const catchAsyncError = require("./../middleware/catchAsyncError")
 //jwt
 const jwt = require("jsonwebtoken");
 const ErrorHandler = require("../utils/ErrorHandler");
+const sendToken = require("../utils/jwtToken");
 //post data
 const Post_Register = catchAsyncError(async (req, res,next) => {
     const { name, email, password } = req.body
@@ -21,11 +22,7 @@ const Post_Register = catchAsyncError(async (req, res,next) => {
                 url: "profilepicture"
             } });
 
-             const token=user.getjwtToken()
-            res.send({
-                sucess: true,
-                token,
-            });
+            sendToken(user,201,res);
         }
     
 
@@ -40,11 +37,11 @@ const Post_Register = catchAsyncError(async (req, res,next) => {
 
             const user = await Register.findOne({
                 email: email
-            });
+            }).select("+password");
 
           if(!user)
           {
-             return next(new ErrorHandler("Invalid email or password",401));
+             return next(new ErrorHandler("Invalid email or password12",401));
           }
           const isPasswordChecked=user.comparePassword(password)
         if(!isPasswordChecked)
@@ -53,14 +50,7 @@ const Post_Register = catchAsyncError(async (req, res,next) => {
         }
        
            
-                    const token=user.getjwtToken()
-                        if (!token) {
-                            res.json({ message: "Login Failed" })
-                        }
-                        else {
-                            res.json({ success: "true", token })
-                        
-            }
+      sendToken(user,200,res);
       }
       )
     //Reset Password......
@@ -153,13 +143,16 @@ const Post_Register = catchAsyncError(async (req, res,next) => {
     }
 
 
-    const logOut = (req, res) => {
-        req.logout();
-        res.status(200).json({
-            status: 'Bye!'
-        });
+    const logOut =catchAsyncError(async(req, res,next) => {
+        // res.cookie("token",null,{
+        //     expires:new Date(Date.now),
+        //     httpOnly:true
+        // })
+        // res.status(200).json({
+        //     status: 'logout successfully'
+        // });
     }
-
+    )
     //const 
     const getData = async (req, res) => {
         const data = await Register.find();

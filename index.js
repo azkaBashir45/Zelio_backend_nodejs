@@ -26,9 +26,10 @@ app.use(cors());
 
 const registerRoutes=require("./rotes/registerRouter");
 const placesRoutes=require("./rotes/placesRoutes");
+const cookieParser=require("cookie-parser")
 app.use("/",registerRoutes);
 app.use("/",placesRoutes);
-
+app.use(cookieParser())
 const server=app.listen(3000,()=>{
     console.log("Server is running on 3000")
 })
