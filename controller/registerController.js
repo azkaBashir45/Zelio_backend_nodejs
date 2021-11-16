@@ -144,13 +144,13 @@ const Post_Register = catchAsyncError(async (req, res,next) => {
 
 
     const logOut =catchAsyncError(async(req, res,next) => {
-        // res.cookie("token",null,{
-        //     expires:new Date(Date.now),
-        //     httpOnly:true
-        // })
-        // res.status(200).json({
-        //     status: 'logout successfully'
-        // });
+        res.cookie("token",null,{
+            expires:new Date(Date.now),
+            httpOnly:true
+        })
+        res.status(200).json({
+            status: 'logout successfully'
+        });
     }
     )
     //const 
